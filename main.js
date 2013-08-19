@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var argv = require('optimist').argv,
   _ = require('underscore'),
   featherConfig = require('feather-config'),
