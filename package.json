@@ -1,0 +1,15 @@
+{
+  "name": "airborne-to-disk",
+  "version": "0.1.0",
+  "description": "A CLI tool to write a set of airborne databoxen definitions to disk in order to put them under source control",
+  "author": "Ryan Gahl <ryan@thevolary.com>",
+  "readmeFilename": "README.md",
+  "repository": { "type": "git", "url": "git://github.com/theVolary/airborne-to-disk.git" },
+  "main": "main.js",
+  "dependencies": {
+    "feather-config": "git+http://github.com/theVolary/feather-config.git"
+  },
+  "bin": {
+    "airborne-to-disk": "./main.js"
+  }
+}
