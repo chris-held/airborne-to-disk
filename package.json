@@ -4,12 +4,24 @@
   "description": "A CLI tool to write a set of airborne databoxen definitions to disk in order to put them under source control",
   "author": "Ryan Gahl <ryan@thevolary.com>",
   "readmeFilename": "README.md",
-  "repository": { "type": "git", "url": "git://github.com/theVolary/airborne-to-disk.git" },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/theVolary/airborne-to-disk.git"
+  },
   "main": "main.js",
   "dependencies": {
-    "feather-config": "git+http://github.com/theVolary/feather-config.git"
+    "feather-config": "git+http://github.com/theVolary/feather-config.git",
+    "underscore": "1.5.1",
+    "optimist": "0.6.0",
+    "airborne_client": "git+ssh://git@github.com:theVolary/airborne_client.git"
   },
   "bin": {
     "airborne-to-disk": "./main.js"
-  }
+  },
+  "gitHead": "58af2c2b659d4f759e867e3281faa0aa36631316",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT"
 }
