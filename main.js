@@ -82,6 +82,7 @@ featherConfig.init({
 
           sem.execute();
         });
+      }
     });
   }
 });
