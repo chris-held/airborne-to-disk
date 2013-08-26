@@ -53,28 +53,30 @@ featherConfig.init({
             if (mkClientDir.result) {
 
               _.each(_.keys(client), function(thingName) {
-                var thing = client[thingName];
-                var thingPath = path.join(clientPath, thingName);
-                var mkThingDir = util.mkdirpSync(thingPath);
-                if (mkThingDir.result) {
+                if (thingName.indexOf('ab_system') == -1) {
+                  var thing = client[thingName];
+                  var thingPath = path.join(clientPath, thingName);
+                  var mkThingDir = util.mkdirpSync(thingPath);
+                  if (mkThingDir.result) {
 
-                  //now write the 3 docs
-                  _.each(['thing', 'designDoc', 'schema'], function(prop) {
-                    sem.increment();
-                    var filePath = path.join(thingPath, prop + '.json');
-                    var json = JSON.stringify(thing[prop], null, 2);
-                    //make newline content git-friendly on disk
-                    json = json.replace(/\\n/g, '\n\/\*-\*\/ ');
-                    fs.writeFile(filePath, json, function(err) {
-                      if (err) {
-                        errors.push('Error writing file ' + filePath + '; err: ' + err);
-                      }
-                      sem.execute();
+                    //now write the 3 docs
+                    _.each(['thing', 'designDoc', 'schema'], function(prop) {
+                      sem.increment();
+                      var filePath = path.join(thingPath, prop + '.json');
+                      var json = JSON.stringify(thing[prop], null, 2);
+                      //make newline content git-friendly on disk
+                      json = json.replace(/\\n/g, '\n\/\*-\*\/ ');
+                      fs.writeFile(filePath, json, function(err) {
+                        if (err) {
+                          errors.push('Error writing file ' + filePath + '; err: ' + err);
+                        }
+                        sem.execute();
+                      });
                     });
-                  });
 
-                } else {
-                  errors.push(mkThingDir.err);
+                  } else {
+                    errors.push(mkThingDir.err);
+                  }
                 }
               });
             } else {

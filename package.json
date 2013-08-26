@@ -1,7 +1,7 @@
 {
   "name": "airborne-to-disk",
   "version": "0.1.0",
-  "description": "A CLI tool to write a set of airborne databoxen definitions to disk in order to put them under source control",
+  "description": "A CLI tool that writes a set of airborne databoxen definitions to disk and creates/updates an airborne database from disk.",
   "author": "Ryan Gahl <ryan@thevolary.com>",
   "readmeFilename": "README.md",
   "repository": {
@@ -17,11 +17,6 @@
   },
   "bin": {
     "airborne-to-disk": "./main.js"
-  },
-  "gitHead": "58af2c2b659d4f759e867e3281faa0aa36631316",
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT"
 }
