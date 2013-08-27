@@ -1,19 +1,18 @@
 #!/usr/bin/env node
 
 var argv = require('optimist').argv,
-  _ = require('underscore'),
   featherConfig = require('feather-config'),
-  airborne = require('airborne_client'),
-  fs = require('fs'),
-  util = require('./lib/util'),
-  Semaphore = require('./lib/semaphore'),
-  path = require('path');
+  api = {
+    write: require('./lib/airborne-to-disk/write').write,
+    restore: require('./lib/airborne-to-disk/restore').restore
+  };
 
 if (!argv.path) {
-  console.log('Must provide --path argument which is the FULLY qualified path of the folder you wish to write the airborne database(s) to on disk. The directory must already exist.');
+  console.log('Must provide --path argument which is the FULLY qualified path of the folder you wish to write/read the airborne database(s) to/from on disk. The directory must already exist.');
   process.exit(1);
 }
 
+//generic function to end the process with an exit message
 function end(msg) {
   console.error(msg);
   process.nextTick(function() {
@@ -21,72 +20,26 @@ function end(msg) {
   });
 }
 
+//need to read the config before doing anything else
 featherConfig.init({
   appDir: process.cwd()
 }, function(err, config) {
   if (err) {
-    
+    end('Could not read from config. err: ' + err);
   } else {
 
     var airborneConfig = config.safeGet('airborne');
     if (!airborneConfig) return end('No airborne section found in config');
 
-    //loop the configured airborne databases, create the client, and write all the thing docs to disk
-    var errors = [];
-    var sem = new Semaphore(function() {
-      if (!errors.length) errors = 'none';
-      end('Process complete. Errors: ' + JSON.stringify(errors, null, 2));
-    });
+    var method = 'write';
+    if (argv.restore) method = 'restore';
 
-    _.each(_.keys(airborneConfig), function(key) {
-      var config = airborneConfig[key];
-      if (config.enabled) {
-        sem.increment();
-        airborne.createClient(config, function(err, client) {
-          if (err) {            
-            errors.push('Error creating client "' + key + '". err: ' + err);          
-          } else {
-
-            //client was created, now loop through all the things and write to disk
-            var clientPath = path.join(argv.path, key);
-            var mkClientDir = util.mkdirpSync(clientPath);
-            if (mkClientDir.result) {
-
-              _.each(_.keys(client), function(thingName) {
-                if (thingName.indexOf('ab_system') == -1) {
-                  var thing = client[thingName];
-                  var thingPath = path.join(clientPath, thingName);
-                  var mkThingDir = util.mkdirpSync(thingPath);
-                  if (mkThingDir.result) {
-
-                    //now write the 3 docs
-                    _.each(['thing', 'designDoc', 'schema'], function(prop) {
-                      sem.increment();
-                      var filePath = path.join(thingPath, prop + '.json');
-                      var json = JSON.stringify(thing[prop], null, 2);
-                      //make newline content git-friendly on disk
-                      json = json.replace(/\\n/g, '\n\/\*-\*\/ ');
-                      fs.writeFile(filePath, json, function(err) {
-                        if (err) {
-                          errors.push('Error writing file ' + filePath + '; err: ' + err);
-                        }
-                        sem.execute();
-                      });
-                    });
-
-                  } else {
-                    errors.push(mkThingDir.err);
-                  }
-                }
-              });
-            } else {
-              errors.push(mkClientDir.err);
-            }
-          }
-
-          sem.execute();
-        });
+    api[method](argv.path, airborneConfig, function(errors, resultStr) {
+      if (errors) {
+        resultStr += ' Errors: ' + JSON.stringify(errors, null, 2);
       }
+
+      end(resultStr);
     });
   }
 });
