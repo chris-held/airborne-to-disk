@@ -8,7 +8,7 @@ Airborne-to-disk is a CLI tool that can be used to persist or restore a set of A
 
 ## Usage
 
-Once installed, the `airborne-to-disk` command can be run from a folder that contains a configuration file or files. Airborne-to-disk uses [https://github.com/theVolary/feather-config](feather-config) which means configuration will be in the form of a config.json file at the top level and optionally include a conf folder that has environment specific configurations. A side benefit using feather-config is that this command can also conveniently be run directly from within an existing feather project.
+Once installed, the `airborne-to-disk` command can be run from a folder that contains a configuration file or files. Airborne-to-disk uses [feather-config](https://github.com/theVolary/feather-config) which means configuration will be in the form of a config.json file at the top level and optionally include a conf folder that has environment specific configurations. A side benefit using feather-config is that this command can also conveniently be run directly from within an existing feather project.
 
 It is important to note that both the write and restore modes of this tool require that the airborne instances be running. This is because this tool uses airborne's REST interface to fetch and write the thing/schema definitions.
   
