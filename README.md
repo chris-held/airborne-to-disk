@@ -14,9 +14,9 @@ It is important to note that both the write and restore modes of this tool requi
   
 ### Command line arguments
 
-* --path <path_to_directory> (REQUIRED) - this argument is the complete absolute path to the directory you wish to write the database definitions to (or restore from)
-* --restore - this is a flag that tells airborne-to-disk to read the database definitions from the directory specified via the `--path` argument and write to the airborne datase(s) found in config.
-* env <environment_name> - this argument tells feather-config which environment configuration to use (behaves exactly as feather's `-e` alias)
+* `--path <path_to_directory>` (REQUIRED) - this argument is the complete absolute path to the directory you wish to write the database definitions to (or restore from)
+* `--restore` - this is a flag that tells airborne-to-disk to read the database definitions from the directory specified via the `--path` argument and write to the airborne datase(s) found in config.
+* `env <environment_name>` - this argument tells feather-config which environment configuration to use (behaves exactly as feather's `-e` alias)
 
 ### Example Configuration
 
