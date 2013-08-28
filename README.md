@@ -1,6 +1,6 @@
 # Airborne to Disk (and back again)
 
-Airborne-to-disk is a CLI tool that can be used to persist or restore a set of Airborne database definitions to/from disk. The persistence is in the form of a set JSON files for each `thing` found in each of the configured databases. 
+Airborne-to-disk is a CLI tool that can be used to persist or restore a set of Airborne database definitions to/from disk. The persistence is in the form of a set of JSON files for each `thing` found in each of the configured databases. 
 
 ## Installation
 
