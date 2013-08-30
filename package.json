@@ -13,7 +13,7 @@
     "feather-config": "git+http://github.com/theVolary/feather-config.git",
     "underscore": "1.5.1",
     "optimist": "0.6.0",
-    "airborne_client": "git+ssh://git@github.com:theVolary/airborne_client.git",
+    "airborne_client": "git+http://github.com/theVolary/airborne_client.git",
     "request": "2.27.0"
   },
   "bin": {
