@@ -1,7 +1,7 @@
 {
   "name": "airborne-to-disk",
   "version": "0.1.0",
-  "description": "A CLI tool that writes a set of airborne databoxen definitions to disk and creates/updates an airborne database from disk.",
+  "description": "A CLI tool that writes a set of airborne databoxen definitions to disk with support to restore as well.",
   "author": "Ryan Gahl <ryan@thevolary.com>",
   "readmeFilename": "README.md",
   "repository": {
